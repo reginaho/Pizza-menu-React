@@ -1,25 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const pizzaData = [
   {
@@ -71,7 +52,6 @@ function App() {
     <div className="container">
       <Header />
       <Menu />
-      <PizzaChart /> {/* Use the renamed PizzaChart component here */}
       <Footer />
     </div>
   );
@@ -94,7 +74,10 @@ function Menu() {
       <h2>Our Menu </h2>
       {numPizzas > 0 ? (
         <React.Fragment>
-          <p>Authentic Pizzas that will make your day!!</p>
+          <p>
+            Authentic Pizzas that will either cure your depression or will make
+            it worse! Try and find out today!
+          </p>
           <ul className="pizzas">
             {pizzaData.map((pizza) => (
               <Pizza pizzaObj={pizza} key={pizza.name} />
@@ -151,53 +134,6 @@ function Order({ closeHour, openHour }) {
         visit us or make an online order!
       </p>
       <button className="btn"> Order </button>
-    </div>
-  );
-}
-
-function PizzaChart() {
-  const data = {
-    labels: pizzaData.map((pizza) => pizza.name),
-    datasets: [
-      {
-        label: "Pizza Prices",
-        data: pizzaData.map((pizza) => pizza.price),
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Pizza Prices",
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  const chartContainerStyle = {
-    width: "40%",
-    height: "250px",
-    margin: "0 auto",
-  };
-
-  return (
-    <div style={chartContainerStyle}>
-      <h2>Pizza Prices Chart</h2>
-      <Bar data={data} options={options} />
     </div>
   );
 }
